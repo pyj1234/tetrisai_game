@@ -73,7 +73,7 @@ hr
 
 .score-container::before
 {
-    content: "消除的行数";
+    content: "消除行数";
     width:100%;
     float:right;
     color: #BBBBBB;
@@ -104,7 +104,7 @@ hr
     font-weight: normal;
 }
 
-.start-ai-button, .reset-button {
+.start-ai-button, .m-button {
     -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
     -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
     box-shadow:inset 0px 1px 0px 0px #ffffff;
@@ -137,20 +137,22 @@ hr
     text-shadow:1px 1px 0px #ffffff;
 }
 
-.start-ai-button:hover, .reset-button:hover {
+.start-ai-button:hover, .m-button:hover {
     background-color:#e9e9e9;
 }
 
-.start-ai-button:active, .reset-button:active {
+.start-ai-button:active, .m-button:active {
      position:relative;
      top:1px;
  }
 
 .start-ai-button{
+    user-select: none;
     margin-top: 15px;
 }
 
-.reset-button{
+.m-button{
+    user-select: none;
     margin-top: 10px;
 }
 
