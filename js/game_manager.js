@@ -4,6 +4,13 @@ function GameManager(){
     var scoreContainer = document.getElementById("score-container");
     var resetButton = document.getElementById('reset-button');
     var aiButton = document.getElementById('ai-button');
+
+    var upButton = document.getElementById('up-button');
+    var downButton = document.getElementById('down-button');
+    var leftButton = document.getElementById('left-button');
+    var rightButton = document.getElementById('right-button');
+    var spaceButton = document.getElementById('space-button');
+
     var gridContext = gridCanvas.getContext('2d');
     var nextContext = nextCanvas.getContext('2d');
     document.addEventListener('keydown', onKeyDown);
@@ -189,6 +196,41 @@ function GameManager(){
         startTurn();
     }
 
+    function upButtonEvent () {
+        workingPiece.rotate(grid);
+        redrawGridCanvas();
+    }
+
+    function downButtonEvent () {
+        gravityTimer.resetForward(500);
+    }
+
+    function leftButtonEvent () {
+        if(workingPiece.canMoveLeft(grid)){
+            workingPiece.moveLeft(grid);
+            redrawGridCanvas();
+        }
+    }
+
+    function rightButtonEvent () {
+        if(workingPiece.canMoveRight(grid)){
+            workingPiece.moveRight(grid);
+            redrawGridCanvas();
+        }
+    }
+
+    function spaceButtonEvent () {
+        isKeyEnabled = false;
+        gravityTimer.stop(); // Stop gravity
+        startWorkingPieceDropAnimation(function(){ // Start drop animation
+            while(workingPiece.moveDown(grid)); // Drop working piece
+            if(!endTurn()){
+                alert('Game Over!');
+                return;
+            }
+            startTurn();
+        });
+    }
     // Process keys
     function onKeyDown(event){
         if(!isKeyEnabled){
@@ -196,37 +238,41 @@ function GameManager(){
         }
         switch(event.which){
             case 32: // spacebar
-                isKeyEnabled = false;
-                gravityTimer.stop(); // Stop gravity
-                startWorkingPieceDropAnimation(function(){ // Start drop animation
-                    while(workingPiece.moveDown(grid)); // Drop working piece
-                    if(!endTurn()){
-                        alert('Game Over!');
-                        return;
-                    }
-                    startTurn();
-                });
+                spaceButtonEvent();
                 break;
             case 40: // down
-                gravityTimer.resetForward(500);
+                downButtonEvent();
                 break;
             case 37: //left
-                if(workingPiece.canMoveLeft(grid)){
-                    workingPiece.moveLeft(grid);
-                    redrawGridCanvas();
-                }
+                leftButtonEvent();
                 break;
             case 39: //right
-                if(workingPiece.canMoveRight(grid)){
-                    workingPiece.moveRight(grid);
-                    redrawGridCanvas();
-                }
+                rightButtonEvent();
                 break;
             case 38: //up
-                workingPiece.rotate(grid);
-                redrawGridCanvas();
+                upButtonEvent();
                 break;
         }
+    }
+
+    upButton.onclick = function () {
+        upButtonEvent();
+    }
+
+    downButton.onclick = function () {
+        downButtonEvent();
+    }
+
+    leftButton.onclick = function () {
+        leftButtonEvent();
+    }
+
+    rightButton.onclick = function () {
+        rightButtonEvent();
+    }
+
+    spaceButton.onclick = function () {
+        spaceButtonEvent();
     }
 
     aiButton.onclick = function(){
