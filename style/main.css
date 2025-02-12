@@ -73,7 +73,7 @@ hr
 
 .score-container::before
 {
-    content: "Lines Cleared";
+    content: "消除的行数";
     width:100%;
     float:right;
     color: #BBBBBB;
@@ -96,7 +96,7 @@ hr
 
 .next-container::before
 {
-    content: "Next Piece";
+    content: "下一个块";
     width:100%;
     float:right;
     color: #BBBBBB;
